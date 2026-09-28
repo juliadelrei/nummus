@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NUMMUS — Moedas & Coleções</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <div class="nav">
+    <a class="brand" href="#"><b>NUMMUS</b></a>
+    <div class="search"><span>⌕</span><input id="search" type="search" placeholder="Pesquisar moeda, país ou período..."></div>
+    <nav>
+      <a href="#loja">Moedas</a><a href="#loja">Países</a><a href="#raridades">Raridades</a><a href="#contato">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="heroCopy">
+    <p class="eyebrow">COLECIONE O MUNDO</p>
+    <h1>Peças com<br><em>história.</em></h1>
+    <p class="lead">Um catálogo de moedas para quem gosta de conhecer a história por trás de cada peça.</p>
+    <div class="heroActions"><a class="primary" href="#loja">Ver coleção</a><a class="textBtn" href="#raridades">Conhecer raridades →</a></div>
+    <div class="trust"><span>✓ Peças catalogadas</span><span>✓ História e curiosidades</span><span>✓ Coleção internacional</span></div>
+  </div>
+  <div class="heroVisual"><div class="coin bigCoin"><span>N</span><small>NUMMUS<br>COLLECTION</small></div><div class="stamp">EST.<br>2026</div></div>
+</section>
+
+<section class="ticker"><span>BRASIL</span><span>ESTADOS UNIDOS</span><span>FRANÇA</span><span>REINO UNIDO</span><span>JAPÃO</span><span>ALEMANHA</span></section>
+
+<section id="loja" class="section">
+  <section id="loja" class="section">
+
+    <div class="sectionHead">
+        <div>
+            <p class="eyebrow">CATÁLOGO NUMMUS</p>
+            <h2>Moedas em destaque</h2>
+        </div>
+
+        <span id="resultInfo">12 peças</span>
+    </div>
+
+    <div class="countryFilter">
+        <label for="countrySelect">FILTRAR POR PAÍS</label>
+
+        <select id="countrySelect">
+            <option value="Todos">Todos os países</option>
+        </select>
+    </div>
+
+</section>
+  <div id="products" class="products"></div>
+</section>
+
+<section id="raridades" class="rarity">
+  <div><p class="eyebrow">PARA COLECIONADORES</p><h2>Não é só uma moeda.<br>É um pedaço do tempo.</h2><p>Encontre peças históricas, comemorativas e raridades para conhecer e estudar diferentes períodos da numismática.</p><a class="primary" href="#loja">Ver catálogo</a></div>
+  <div class="rarityCoins"><div class="coin c1">★</div><div class="coin c2">N</div><div class="coin c3">€</div></div>
+</section>
+
+<section id="contato" class="contactSection">
+  <div class="contactIntro">
+    <p class="eyebrow">ATENDIMENTO NUMMUS</p><h2>Fale com a nossa equipe.</h2>
+    <p>Tem dúvidas sobre uma moeda, quer saber mais sobre uma coleção ou encontrou uma peça que gostaria de identificar? Estamos aqui para ajudar.</p>
+    <div class="contactInfo"><div><span>✉</span><div><b>E-mail</b><small>delreijulia5@gmail.com</small></div></div><div><span>⌁</span><div><b>Atendimento</b><small>Segunda a sexta · 9h às 18h</small></div></div><div><span>◷</span><div><b>Catálogo</b><small>Informações sobre moedas e períodos</small></div></div></div>
+  </div>
+  <form class="contactForm" action="https://formsubmit.co/delreijulia5@gmail.com" method="POST">
+    <input type="hidden" name="_subject" value="Nova mensagem - NUMMUS"><input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="true"><input type="text" name="_honey" class="honeypot">
+    <label>Nome<input required name="name" placeholder="Seu nome"></label>
+    <label>E-mail<input required type="email" name="email" placeholder="seu@email.com"></label>
+    <label>Assunto<select required name="assunto"><option value="">Selecione</option><option>Dúvida sobre uma moeda</option><option>Identificação de moeda</option><option>Informações sobre coleção</option><option>Outro assunto</option></select></label>
+    <label>Mensagem<textarea required name="message" placeholder="Como podemos ajudar?"></textarea></label>
+    <button class="primary formButton" type="submit">Enviar mensagem</button>
+  </form>
+</section>
+</main>
+
+<footer>
+  <div class="footerGrid"><div><a class="brand light"><b>NUMMUS</b></a><p>Moedas que atravessam gerações.</p></div><div><h4>CATÁLOGO</h4><a href="#loja">Todas as moedas</a><a href="#loja">Por país</a><a href="#raridades">Raridades</a></div><div><h4>ATENDIMENTO</h4><a href="mailto:delreijulia5@gmail.com">delreijulia5@gmail.com</a><a href="#contato">Fale conosco</a></div><div><h4>NUMMUS</h4><p>História</p><p>Colecionismo</p><p>Numismática</p></div></div>
+  <div class="copyright">© 2026 NUMMUS · Moedas & Coleções</div>
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
