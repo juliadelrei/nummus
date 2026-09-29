@@ -12,7 +12,7 @@
 
 <body>
 
-<header class="header">
+<header>
 
     <div class="nav">
 
@@ -20,9 +20,10 @@
             NUMMUS
         </a>
 
+
         <div class="searchBox">
 
-            <span class="searchIcon">⌕</span>
+            <span>⌕</span>
 
             <input
                 type="search"
@@ -32,15 +33,35 @@
 
         </div>
 
-        <nav class="menu">
 
-            <a href="#loja">Moedas</a>
+        <nav>
 
-            <a href="#loja">Países</a>
+            <a href="#loja">
+                Moedas
+            </a>
 
-            <a href="#raridades">Raridades</a>
+            <a href="#loja">
+                Países
+            </a>
 
-            <a href="#contato">Contato</a>
+            <a href="#raridades">
+                Raridades
+            </a>
+
+            <a href="#contato">
+                Contato
+            </a>
+
+
+            <button
+                type="button"
+                class="accountButton"
+                id="accountButton"
+            >
+                👤
+                <span>Entrar</span>
+            </button>
+
 
             <button
                 type="button"
@@ -59,10 +80,18 @@
 </header>
 
 
-<div class="cartOverlay" id="cartOverlay"></div>
+<!-- CARRINHO -->
+
+<div
+    class="cartOverlay"
+    id="cartOverlay"
+></div>
 
 
-<aside class="cartPanel" id="cartPanel">
+<aside
+    class="cartPanel"
+    id="cartPanel"
+>
 
     <div class="cartHeader">
 
@@ -77,6 +106,7 @@
             </h2>
 
         </div>
+
 
         <button
             type="button"
@@ -123,6 +153,7 @@
 
         </div>
 
+
         <button
             type="button"
             class="finishButton"
@@ -136,415 +167,625 @@
 </aside>
 
 
-<main>
+<!-- CONTA -->
+
+<div
+    class="accountOverlay"
+    id="accountOverlay"
+></div>
 
 
-<section class="hero">
+<div
+    class="accountModal"
+    id="accountModal"
+>
 
-    <div class="heroContent">
+    <div class="accountBox">
 
-        <span class="eyebrow">
-            COLECIONE O MUNDO
+        <button
+            type="button"
+            class="closeAccount"
+            id="closeAccount"
+        >
+            ×
+        </button>
+
+
+        <span class="smallTitle">
+            NUMMUS
         </span>
 
-        <h1>
-            Peças com
-            <em>história.</em>
-        </h1>
 
-        <p>
-            Um catálogo de moedas para quem gosta de conhecer
-            a história por trás de cada peça.
+        <h2 id="accountTitle">
+            Criar conta
+        </h2>
+
+
+        <p class="accountDescription">
+            Crie sua conta para acompanhar seus pedidos
+            e sua coleção.
         </p>
 
-        <div class="heroButtons">
+
+        <!-- CADASTRO -->
+
+        <form id="signupForm">
+
+            <label>
+                NOME
+
+                <input
+                    type="text"
+                    id="signupName"
+                    placeholder="Seu nome"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+                E-MAIL
+
+                <input
+                    type="email"
+                    id="signupEmail"
+                    placeholder="seu@email.com"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+                SENHA
+
+                <input
+                    type="password"
+                    id="signupPassword"
+                    placeholder="Mínimo 6 caracteres"
+                    minlength="6"
+                    required
+                >
+
+            </label>
+
+
+            <button
+                type="submit"
+                class="accountSubmit"
+            >
+                CRIAR CONTA
+            </button>
+
+        </form>
+
+
+        <!-- LOGIN -->
+
+        <form
+            id="loginForm"
+            class="hiddenForm"
+        >
+
+            <label>
+                E-MAIL
+
+                <input
+                    type="email"
+                    id="loginEmail"
+                    placeholder="seu@email.com"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+                SENHA
+
+                <input
+                    type="password"
+                    id="loginPassword"
+                    placeholder="Sua senha"
+                    required
+                >
+
+            </label>
+
+
+            <button
+                type="submit"
+                class="accountSubmit"
+            >
+                ENTRAR
+            </button>
+
+        </form>
+
+
+        <p
+            id="accountMessage"
+            class="accountMessage"
+        ></p>
+
+
+        <button
+            type="button"
+            class="toggleAccount"
+            id="toggleAccountMode"
+        >
+            Já tenho uma conta
+        </button>
+
+    </div>
+
+</div>
+
+
+<main>
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="heroContent">
+
+            <span class="eyebrow">
+                COLECIONE O MUNDO
+            </span>
+
+
+            <h1>
+                Peças com
+                <em>história.</em>
+            </h1>
+
+
+            <p>
+                Um catálogo de moedas para quem gosta
+                de conhecer a história por trás de cada peça.
+            </p>
+
+
+            <div class="heroButtons">
+
+                <a
+                    href="#loja"
+                    class="mainButton"
+                >
+                    VER COLEÇÃO
+                </a>
+
+
+                <a
+                    href="#raridades"
+                    class="linkButton"
+                >
+                    Conhecer raridades →
+                </a>
+
+            </div>
+
+
+            <div class="heroInfo">
+
+                <span>
+                    ✓ Peças catalogadas
+                </span>
+
+                <span>
+                    ✓ História e curiosidades
+                </span>
+
+                <span>
+                    ✓ Coleção internacional
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <div class="heroCoinArea">
+
+            <div class="heroCoin">
+
+                <div class="heroCoinInner">
+
+                    <span class="heroN">
+                        N
+                    </span>
+
+                    <span class="heroText">
+                        NUMMUS
+                    </span>
+
+                    <span class="heroYear">
+                        COLLECTION · 2026
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="estBadge">
+
+                EST.
+
+                <strong>
+                    2026
+                </strong>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- CATÁLOGO -->
+
+    <section
+        id="loja"
+        class="catalog"
+    >
+
+        <div class="catalogTop">
+
+            <div>
+
+                <span class="eyebrow">
+                    CATÁLOGO NUMMUS
+                </span>
+
+                <h2>
+                    Moedas em destaque
+                </h2>
+
+            </div>
+
+
+            <span
+                class="resultInfo"
+                id="resultInfo"
+            >
+                12 peças
+            </span>
+
+        </div>
+
+
+        <div class="filters">
+
+            <div class="filter">
+
+                <label for="countrySelect">
+                    PAÍS
+                </label>
+
+
+                <select id="countrySelect">
+
+                    <option value="Todos">
+                        Todos os países
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="filter">
+
+                <label for="yearSelect">
+                    ANO
+                </label>
+
+
+                <select id="yearSelect">
+
+                    <option value="Todos">
+                        Todos os anos
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div
+            class="products"
+            id="products"
+        ></div>
+
+    </section>
+
+
+    <!-- RARIDADES -->
+
+    <section
+        id="raridades"
+        class="raritySection"
+    >
+
+        <div class="rarityContent">
+
+            <span class="eyebrow">
+                PARA COLECIONADORES
+            </span>
+
+
+            <h2>
+                Não é só uma moeda.<br>
+                É um pedaço do tempo.
+            </h2>
+
+
+            <p>
+                Encontre peças históricas, comemorativas
+                e raridades para conhecer e estudar
+                diferentes períodos da numismática.
+            </p>
+
 
             <a
                 href="#loja"
                 class="mainButton"
             >
-                VER COLEÇÃO
-            </a>
-
-            <a
-                href="#raridades"
-                class="linkButton"
-            >
-                Conhecer raridades →
+                VER CATÁLOGO
             </a>
 
         </div>
 
-        <div class="heroInfo">
 
-            <span>✓ Peças catalogadas</span>
+        <div class="rarityCoins">
 
-            <span>✓ História e curiosidades</span>
+            <div class="decorCoin decor1">
+                ★
+            </div>
 
-            <span>✓ Coleção internacional</span>
+            <div class="decorCoin decor2">
+                N
+            </div>
 
-        </div>
-
-    </div>
-
-
-    <div class="heroCoinArea">
-
-        <div class="heroCoin">
-
-            <div class="heroCoinInner">
-
-                <span class="heroN">
-                    N
-                </span>
-
-                <span class="heroText">
-                    NUMMUS
-                </span>
-
-                <span class="heroYear">
-                    COLLECTION · 2026
-                </span>
-
+            <div class="decorCoin decor3">
+                €
             </div>
 
         </div>
 
-        <div class="estBadge">
-            EST.<br>
-            <strong>2026</strong>
-        </div>
+    </section>
 
-    </div>
 
-</section>
+    <!-- CONTATO -->
 
-
-
-<section
-    id="loja"
-    class="catalog"
->
-
-    <div class="catalogTop">
-
-        <div>
-
-            <span class="eyebrow">
-                CATÁLOGO NUMMUS
-            </span>
-
-            <h2>
-                Moedas em destaque
-            </h2>
-
-        </div>
-
-        <span
-            id="resultInfo"
-            class="resultInfo"
-        >
-            12 peças
-        </span>
-
-    </div>
-
-
-    <div class="filters">
-
-        <div class="filter">
-
-            <label for="countrySelect">
-                PAÍS
-            </label>
-
-            <select id="countrySelect">
-
-                <option value="Todos">
-                    Todos os países
-                </option>
-
-            </select>
-
-        </div>
-
-
-        <div class="filter">
-
-            <label for="yearSelect">
-                ANO
-            </label>
-
-            <select id="yearSelect">
-
-                <option value="Todos">
-                    Todos os anos
-                </option>
-
-            </select>
-
-        </div>
-
-    </div>
-
-
-    <div
-        id="products"
-        class="products"
-    ></div>
-
-</section>
-
-
-
-<section
-    id="raridades"
-    class="raritySection"
->
-
-    <div class="rarityContent">
-
-        <span class="eyebrow">
-            PARA COLECIONADORES
-        </span>
-
-        <h2>
-            Não é só uma moeda.<br>
-            É um pedaço do tempo.
-        </h2>
-
-        <p>
-            Encontre peças históricas, comemorativas e raridades
-            para conhecer e estudar diferentes períodos da numismática.
-        </p>
-
-        <a
-            href="#loja"
-            class="mainButton"
-        >
-            VER CATÁLOGO
-        </a>
-
-    </div>
-
-
-    <div class="rarityCoins">
-
-        <div class="decorCoin decor1">
-            ★
-        </div>
-
-        <div class="decorCoin decor2">
-            N
-        </div>
-
-        <div class="decorCoin decor3">
-            €
-        </div>
-
-    </div>
-
-</section>
-
-
-
-<section
-    id="contato"
-    class="contactSection"
->
-
-    <div class="contactIntro">
-
-        <span class="eyebrow">
-            ATENDIMENTO NUMMUS
-        </span>
-
-        <h2>
-            Fale com a nossa equipe.
-        </h2>
-
-        <p>
-            Tem dúvidas sobre uma moeda, quer saber mais sobre
-            uma coleção ou encontrou uma peça que gostaria
-            de identificar? Estamos aqui para ajudar.
-        </p>
-
-
-        <div class="contactInfo">
-
-            <div class="contactLine">
-
-                <span>✉</span>
-
-                <div>
-                    <strong>E-mail</strong>
-
-                    <small>
-                        jrperes1979@gmail.com
-                    </small>
-                </div>
-
-            </div>
-
-
-            <div class="contactLine">
-
-                <span>⌁</span>
-
-                <div>
-                    <strong>Atendimento</strong>
-
-                    <small>
-                        Segunda a sexta · 9h às 18h
-                    </small>
-                </div>
-
-            </div>
-
-
-            <div class="contactLine">
-
-                <span>◷</span>
-
-                <div>
-                    <strong>Catálogo</strong>
-
-                    <small>
-                        Informações sobre moedas e períodos
-                    </small>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-
-    <form
-        class="contactForm"
-        action="https://formsubmit.co/delreijulia5@gmail.com"
-        method="POST"
+    <section
+        id="contato"
+        class="contactSection"
     >
 
-        <input
-            type="hidden"
-            name="_subject"
-            value="Nova mensagem - NUMMUS"
+        <div class="contactIntro">
+
+            <span class="eyebrow">
+                ATENDIMENTO NUMMUS
+            </span>
+
+
+            <h2>
+                Fale com a nossa equipe.
+            </h2>
+
+
+            <p>
+                Tem dúvidas sobre uma moeda, quer saber
+                mais sobre uma coleção ou encontrou uma
+                peça que gostaria de identificar?
+            </p>
+
+
+            <div class="contactInfo">
+
+                <div class="contactLine">
+
+                    <span>
+                        ✉
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            E-mail
+                        </strong>
+
+                        <small>
+                            delreijulia5@gmail.com
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contactLine">
+
+                    <span>
+                        ⌁
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Atendimento
+                        </strong>
+
+                        <small>
+                            Segunda a sexta · 9h às 18h
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="contactLine">
+
+                    <span>
+                        ◷
+                    </span>
+
+                    <div>
+
+                        <strong>
+                            Catálogo
+                        </strong>
+
+                        <small>
+                            Informações sobre moedas e períodos
+                        </small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <form
+            class="contactForm"
+            action="https://formsubmit.co/delreijulia5@gmail.com"
+            method="POST"
         >
 
-        <input
-            type="hidden"
-            name="_template"
-            value="table"
-        >
+            <input
+                type="hidden"
+                name="_subject"
+                value="Nova mensagem - NUMMUS"
+            >
 
-        <input
-            type="hidden"
-            name="_captcha"
-            value="true"
-        >
+            <input
+                type="hidden"
+                name="_template"
+                value="table"
+            >
 
-        <input
-            type="text"
-            name="_honey"
-            class="honeypot"
-        >
+            <input
+                type="hidden"
+                name="_captcha"
+                value="true"
+            >
 
-
-        <label>
-            Nome
 
             <input
                 type="text"
-                name="name"
-                placeholder="Seu nome"
-                required
+                name="_honey"
+                class="honeypot"
             >
 
-        </label>
+
+            <label>
+                NOME
+
+                <input
+                    type="text"
+                    name="name"
+                    placeholder="Seu nome"
+                    required
+                >
+
+            </label>
 
 
-        <label>
-            E-mail
+            <label>
+                E-MAIL
 
-            <input
-                type="email"
-                name="email"
-                placeholder="seu@email.com"
-                required
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="seu@email.com"
+                    required
+                >
+
+            </label>
+
+
+            <label>
+                ASSUNTO
+
+                <select
+                    name="assunto"
+                    required
+                >
+
+                    <option value="">
+                        Selecione
+                    </option>
+
+                    <option>
+                        Dúvida sobre uma moeda
+                    </option>
+
+                    <option>
+                        Identificação de moeda
+                    </option>
+
+                    <option>
+                        Informações sobre coleção
+                    </option>
+
+                    <option>
+                        Outro assunto
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <label>
+                MENSAGEM
+
+                <textarea
+                    name="message"
+                    placeholder="Como podemos ajudar?"
+                    required
+                ></textarea>
+
+            </label>
+
+
+            <button
+                type="submit"
+                class="mainButton sendButton"
             >
+                ENVIAR MENSAGEM
+            </button>
 
-        </label>
+        </form>
 
-
-        <label>
-            Assunto
-
-            <select
-                name="assunto"
-                required
-            >
-
-                <option value="">
-                    Selecione
-                </option>
-
-                <option>
-                    Dúvida sobre uma moeda
-                </option>
-
-                <option>
-                    Identificação de moeda
-                </option>
-
-                <option>
-                    Informações sobre coleção
-                </option>
-
-                <option>
-                    Outro assunto
-                </option>
-
-            </select>
-
-        </label>
-
-
-        <label>
-            Mensagem
-
-            <textarea
-                name="message"
-                placeholder="Como podemos ajudar?"
-                required
-            ></textarea>
-
-        </label>
-
-
-        <button
-            type="submit"
-            class="mainButton sendButton"
-        >
-            ENVIAR MENSAGEM
-        </button>
-
-    </form>
-
-</section>
+    </section>
 
 </main>
 
 
+<!-- FOOTER -->
 
 <footer class="footer">
 
     <div class="footerSimple">
 
-        <a href="#" class="brand">
+        <a
+            href="#"
+            class="brand"
+        >
             NUMMUS
         </a>
+
 
         <a
             href="https://github.com/juliadelrei"
@@ -557,6 +798,7 @@
 
     </div>
 
+
     <div class="copyright">
         © 2026 NUMMUS · Moedas & Coleções
     </div>
@@ -564,7 +806,12 @@
 </footer>
 
 
+<!-- SUPABASE -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <script src="script.js"></script>
 
 </body>
+
 </html>

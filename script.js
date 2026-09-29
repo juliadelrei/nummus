@@ -231,6 +231,11 @@ const yearSelect =
 const resultInfo =
     document.getElementById("resultInfo");
 
+
+/* =========================
+   CARRINHO
+========================= */
+
 const cartButton =
     document.getElementById("cartButton");
 
@@ -260,9 +265,48 @@ let cart = [];
 
 
 function money(value) {
-    return value.toFixed(2).replace(".", ",");
+
+    return value
+        .toFixed(2)
+        .replace(".", ",");
+
 }
 
+
+/* =========================
+   MOEDA FALLBACK
+========================= */
+
+function fallbackCoin(product) {
+
+    return `
+        <div class="fallbackCoin">
+
+            <div class="fallbackCoinInner">
+
+                <span>
+                    ${product.code}
+                </span>
+
+                <strong>
+                    ${product.name.split(" ")[0]}
+                </strong>
+
+                <small>
+                    ${product.year}
+                </small>
+
+            </div>
+
+        </div>
+    `;
+
+}
+
+
+/* =========================
+   RENDER MOEDAS
+========================= */
 
 function renderProducts(list) {
 
@@ -272,11 +316,23 @@ function renderProducts(list) {
     if (list.length === 0) {
 
         productsContainer.innerHTML = `
+
             <div class="noResults">
-                <div class="noResultsIcon">⌕</div>
-                <h3>Nenhuma moeda encontrada</h3>
-                <p>Tente mudar os filtros ou pesquisar por outro termo.</p>
+
+                <div class="noResultsIcon">
+                    ⌕
+                </div>
+
+                <h3>
+                    Nenhuma moeda encontrada
+                </h3>
+
+                <p>
+                    Tente mudar os filtros ou pesquisar por outro termo.
+                </p>
+
             </div>
+
         `;
 
         resultInfo.textContent = "0 peças";
@@ -290,7 +346,9 @@ function renderProducts(list) {
         const card =
             document.createElement("article");
 
-        card.className = "productCard";
+
+        card.className =
+            "productCard";
 
 
         card.innerHTML = `
@@ -299,9 +357,11 @@ function renderProducts(list) {
 
                 <img
                     src="${product.image}"
-                    alt="${product.name}"
+                    alt="${product.name} - ${product.country}"
                     class="realCoinImage"
                 >
+
+                ${fallbackCoin(product)}
 
                 <span class="rarityTag">
                     ${product.rarity}
@@ -315,6 +375,7 @@ function renderProducts(list) {
                 <span class="productCountry">
                     ${product.country}
                 </span>
+
 
                 <h3>
                     ${product.name}
@@ -339,7 +400,7 @@ function renderProducts(list) {
                     <div class="priceArea">
 
                         <span>
-                            A partir de
+                            Preço
                         </span>
 
                         <strong>
@@ -362,6 +423,25 @@ function renderProducts(list) {
             </div>
 
         `;
+
+
+        const image =
+            card.querySelector(".realCoinImage");
+
+        const fallback =
+            card.querySelector(".fallbackCoin");
+
+
+        image.addEventListener(
+            "error",
+            function() {
+
+                image.style.display = "none";
+
+                fallback.style.display = "flex";
+
+            }
+        );
 
 
         productsContainer.appendChild(card);
@@ -396,12 +476,18 @@ function renderProducts(list) {
 }
 
 
+/* =========================
+   PAÍSES
+========================= */
+
 function populateCountries() {
 
     countrySelect.innerHTML = `
+
         <option value="Todos">
             Todos os países
         </option>
+
     `;
 
 
@@ -410,9 +496,14 @@ function populateCountries() {
         const option =
             document.createElement("option");
 
-        option.value = country;
 
-        option.textContent = country;
+        option.value =
+            country;
+
+
+        option.textContent =
+            country;
+
 
         countrySelect.appendChild(option);
 
@@ -421,26 +512,38 @@ function populateCountries() {
 }
 
 
+/* =========================
+   ANOS
+========================= */
+
 function populateYears() {
 
     yearSelect.innerHTML = `
+
         <option value="Todos">
             Todos os anos
         </option>
+
     `;
 
 
     const years = [
         ...new Set(
+
             products.map(function(product) {
+
                 return product.year;
+
             })
+
         )
     ];
 
 
     years.sort(function(a, b) {
+
         return Number(a) - Number(b);
+
     });
 
 
@@ -449,9 +552,14 @@ function populateYears() {
         const option =
             document.createElement("option");
 
-        option.value = year;
 
-        option.textContent = year;
+        option.value =
+            year;
+
+
+        option.textContent =
+            year;
+
 
         yearSelect.appendChild(option);
 
@@ -459,6 +567,10 @@ function populateYears() {
 
 }
 
+
+/* =========================
+   FILTROS
+========================= */
 
 function applyFilters() {
 
@@ -479,19 +591,15 @@ function applyFilters() {
     const filtered =
         products.filter(function(product) {
 
-            const text = (
+            const text = `
 
-                product.name +
-                " " +
-                product.country +
-                " " +
-                product.year +
-                " " +
-                product.type +
-                " " +
-                product.rarity
+                ${product.name}
+                ${product.country}
+                ${product.year}
+                ${product.type}
+                ${product.rarity}
 
-            ).toLowerCase();
+            `.toLowerCase();
 
 
             const searchMatch =
@@ -522,11 +630,35 @@ function applyFilters() {
 }
 
 
+searchInput.addEventListener(
+    "input",
+    applyFilters
+);
+
+
+countrySelect.addEventListener(
+    "change",
+    applyFilters
+);
+
+
+yearSelect.addEventListener(
+    "change",
+    applyFilters
+);
+
+
+/* =========================
+   ADICIONAR CARRINHO
+========================= */
+
 function addToCart(id) {
 
     const product =
         products.find(function(item) {
+
             return item.id === id;
+
         });
 
 
@@ -537,7 +669,9 @@ function addToCart(id) {
 
     const existing =
         cart.find(function(item) {
+
             return item.id === id;
+
         });
 
 
@@ -548,8 +682,11 @@ function addToCart(id) {
     } else {
 
         cart.push({
+
             ...product,
+
             quantity: 1
+
         });
 
     }
@@ -562,11 +699,17 @@ function addToCart(id) {
 }
 
 
+/* =========================
+   REMOVER
+========================= */
+
 function removeFromCart(id) {
 
     cart =
         cart.filter(function(item) {
+
             return item.id !== id;
+
         });
 
 
@@ -575,11 +718,17 @@ function removeFromCart(id) {
 }
 
 
+/* =========================
+   QUANTIDADE
+========================= */
+
 function changeQuantity(id, amount) {
 
     const item =
         cart.find(function(product) {
+
             return product.id === id;
+
         });
 
 
@@ -605,6 +754,10 @@ function changeQuantity(id, amount) {
 }
 
 
+/* =========================
+   ATUALIZAR CARRINHO
+========================= */
+
 function updateCart() {
 
     cartItems.innerHTML = "";
@@ -613,6 +766,7 @@ function updateCart() {
     if (cart.length === 0) {
 
         cartItems.innerHTML = `
+
             <div class="emptyCart">
 
                 <div class="emptyCartIcon">
@@ -624,19 +778,25 @@ function updateCart() {
                 </p>
 
             </div>
+
         `;
 
 
-        cartCount.textContent = "0";
+        cartCount.textContent =
+            "0";
 
-        cartTotal.textContent = "R$ 0,00";
+
+        cartTotal.textContent =
+            "R$ 0,00";
+
 
         return;
     }
 
 
     let total = 0;
-    let totalQuantity = 0;
+
+    let quantityTotal = 0;
 
 
     cart.forEach(function(item) {
@@ -644,59 +804,75 @@ function updateCart() {
         total +=
             item.price * item.quantity;
 
-        totalQuantity +=
+
+        quantityTotal +=
             item.quantity;
 
 
-        const element =
+        const cartItem =
             document.createElement("div");
 
-        element.className =
+
+        cartItem.className =
             "cartItem";
 
 
-        element.innerHTML = `
+        cartItem.innerHTML = `
 
-            <img
-                src="${item.image}"
-                class="cartCoinImage"
-                alt="${item.name}"
-            >
+            <div class="cartImageBox">
+
+                <img
+                    src="${item.image}"
+                    alt="${item.name}"
+                    class="cartCoinImage"
+                >
+
+                <span>
+                    ${item.code}
+                </span>
+
+            </div>
 
 
-            <div class="cartItemContent">
+            <div class="cartItemInfo">
 
                 <strong>
                     ${item.name}
                 </strong>
 
+
                 <small>
                     ${item.country} · ${item.year}
                 </small>
 
-                <span>
+
+                <b>
                     R$ ${money(item.price)}
-                </span>
+                </b>
 
 
                 <div class="quantityControls">
 
                     <button
                         type="button"
-                        data-action="minus"
+                        class="quantityButton"
                         data-id="${item.id}"
+                        data-action="minus"
                     >
                         −
                     </button>
 
-                    <strong>
+
+                    <span>
                         ${item.quantity}
-                    </strong>
+                    </span>
+
 
                     <button
                         type="button"
-                        data-action="plus"
+                        class="quantityButton"
                         data-id="${item.id}"
+                        data-action="plus"
                     >
                         +
                     </button>
@@ -717,13 +893,28 @@ function updateCart() {
         `;
 
 
-        cartItems.appendChild(element);
+        const cartImage =
+            cartItem.querySelector(".cartCoinImage");
+
+
+        cartImage.addEventListener(
+            "error",
+            function() {
+
+                cartImage.style.display =
+                    "none";
+
+            }
+        );
+
+
+        cartItems.appendChild(cartItem);
 
     });
 
 
     cartCount.textContent =
-        totalQuantity;
+        quantityTotal;
 
 
     cartTotal.textContent =
@@ -731,7 +922,7 @@ function updateCart() {
 
 
     document
-        .querySelectorAll("[data-action]")
+        .querySelectorAll(".quantityButton")
         .forEach(function(button) {
 
             button.addEventListener(
@@ -741,12 +932,17 @@ function updateCart() {
                     const id =
                         Number(button.dataset.id);
 
+
                     const amount =
                         button.dataset.action === "plus"
                             ? 1
                             : -1;
 
-                    changeQuantity(id, amount);
+
+                    changeQuantity(
+                        id,
+                        amount
+                    );
 
                 }
             );
@@ -765,6 +961,7 @@ function updateCart() {
                     const id =
                         Number(button.dataset.id);
 
+
                     removeFromCart(id);
 
                 }
@@ -775,44 +972,46 @@ function updateCart() {
 }
 
 
+/* =========================
+   ABRIR CARRINHO
+========================= */
+
 function openCart() {
 
-    cartPanel.classList.add("active");
+    cartPanel.classList.add(
+        "active"
+    );
 
-    cartOverlay.classList.add("active");
+    cartOverlay.classList.add(
+        "active"
+    );
 
-    document.body.classList.add("cartOpen");
+    document.body.classList.add(
+        "cartOpen"
+    );
 
 }
 
+
+/* =========================
+   FECHAR CARRINHO
+========================= */
 
 function closeCartPanel() {
 
-    cartPanel.classList.remove("active");
+    cartPanel.classList.remove(
+        "active"
+    );
 
-    cartOverlay.classList.remove("active");
+    cartOverlay.classList.remove(
+        "active"
+    );
 
-    document.body.classList.remove("cartOpen");
+    document.body.classList.remove(
+        "cartOpen"
+    );
 
 }
-
-
-searchInput.addEventListener(
-    "input",
-    applyFilters
-);
-
-
-countrySelect.addEventListener(
-    "change",
-    applyFilters
-);
-
-
-yearSelect.addEventListener(
-    "change",
-    applyFilters
-);
 
 
 cartButton.addEventListener(
@@ -833,21 +1032,26 @@ cartOverlay.addEventListener(
 );
 
 
+/* =========================
+   FINALIZAR
+========================= */
+
 finishButton.addEventListener(
     "click",
     function() {
 
         if (cart.length === 0) {
 
-            alert("Seu carrinho está vazio.");
+            alert(
+                "Seu carrinho está vazio."
+            );
 
             return;
-
         }
 
 
         alert(
-            "Compra pronta para finalizar!\n\n" +
+            "Seu pedido foi preparado.\n\n" +
             "Total: " +
             cartTotal.textContent
         );
@@ -855,6 +1059,448 @@ finishButton.addEventListener(
     }
 );
 
+
+/* =========================
+   CONTA
+========================= */
+
+const accountButton =
+    document.getElementById(
+        "accountButton"
+    );
+
+const accountOverlay =
+    document.getElementById(
+        "accountOverlay"
+    );
+
+const accountModal =
+    document.getElementById(
+        "accountModal"
+    );
+
+const closeAccount =
+    document.getElementById(
+        "closeAccount"
+    );
+
+const signupForm =
+    document.getElementById(
+        "signupForm"
+    );
+
+const loginForm =
+    document.getElementById(
+        "loginForm"
+    );
+
+const signupName =
+    document.getElementById(
+        "signupName"
+    );
+
+const signupEmail =
+    document.getElementById(
+        "signupEmail"
+    );
+
+const signupPassword =
+    document.getElementById(
+        "signupPassword"
+    );
+
+const loginEmail =
+    document.getElementById(
+        "loginEmail"
+    );
+
+const loginPassword =
+    document.getElementById(
+        "loginPassword"
+    );
+
+const accountTitle =
+    document.getElementById(
+        "accountTitle"
+    );
+
+const accountMessage =
+    document.getElementById(
+        "accountMessage"
+    );
+
+const toggleAccountMode =
+    document.getElementById(
+        "toggleAccountMode"
+    );
+
+
+let loginMode = false;
+
+
+/* COLOQUE SUAS CHAVES DO SUPABASE AQUI */
+
+const SUPABASE_URL =
+    "https://izyvvmgbmrsmcshrevnd.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_ckn0noV0ss_H5GW7IdCNMQ_pD1LeFR3";
+
+
+let supabaseClient = null;
+
+
+if (
+    window.supabase &&
+    SUPABASE_URL.startsWith("http") &&
+    SUPABASE_KEY !== "sb_publishable_ckn0noV0ss_H5GW7IdCNMQ_pD1LeFR3"
+) {
+
+    supabaseClient =
+        window.supabase.createClient(
+            SUPABASE_URL,
+            SUPABASE_KEY
+        );
+
+}
+
+
+function openAccount() {
+
+    accountModal.classList.add(
+        "active"
+    );
+
+    accountOverlay.classList.add(
+        "active"
+    );
+
+}
+
+
+function closeAccountModal() {
+
+    accountModal.classList.remove(
+        "active"
+    );
+
+    accountOverlay.classList.remove(
+        "active"
+    );
+
+}
+
+
+function showAccountMessage(
+    message
+) {
+
+    accountMessage.textContent =
+        message;
+
+}
+
+
+accountButton.addEventListener(
+    "click",
+    openAccount
+);
+
+
+closeAccount.addEventListener(
+    "click",
+    closeAccountModal
+);
+
+
+accountOverlay.addEventListener(
+    "click",
+    closeAccountModal
+);
+
+
+toggleAccountMode.addEventListener(
+    "click",
+    function() {
+
+        loginMode =
+            !loginMode;
+
+
+        accountMessage.textContent =
+            "";
+
+
+        if (loginMode) {
+
+            signupForm.classList.add(
+                "hiddenForm"
+            );
+
+            loginForm.classList.remove(
+                "hiddenForm"
+            );
+
+            accountTitle.textContent =
+                "Entrar";
+
+            toggleAccountMode.textContent =
+                "Ainda não tenho uma conta";
+
+        } else {
+
+            signupForm.classList.remove(
+                "hiddenForm"
+            );
+
+            loginForm.classList.add(
+                "hiddenForm"
+            );
+
+            accountTitle.textContent =
+                "Criar conta";
+
+            toggleAccountMode.textContent =
+                "Já tenho uma conta";
+
+        }
+
+    }
+);
+
+
+/* CADASTRO */
+
+signupForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        if (!supabaseClient) {
+
+            showAccountMessage(
+                "Configure o Supabase no script.js para ativar as contas."
+            );
+
+            return;
+
+        }
+
+
+        const name =
+            signupName.value.trim();
+
+        const email =
+            signupEmail.value.trim();
+
+        const password =
+            signupPassword.value;
+
+
+        showAccountMessage(
+            "Criando sua conta..."
+        );
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signUp({
+
+                email: email,
+
+                password: password,
+
+                options: {
+
+                    data: {
+                        name: name
+                    }
+
+                }
+
+            });
+
+
+        if (error) {
+
+            showAccountMessage(
+                error.message
+            );
+
+            return;
+
+        }
+
+
+        if (data.session) {
+
+            showAccountMessage(
+                "Conta criada com sucesso!"
+            );
+
+            updateAccountButton(
+                data.user
+            );
+
+
+            setTimeout(
+                closeAccountModal,
+                1000
+            );
+
+        } else {
+
+            showAccountMessage(
+                "Conta criada! Confira seu e-mail para confirmar."
+            );
+
+        }
+
+    }
+);
+
+
+/* LOGIN */
+
+loginForm.addEventListener(
+    "submit",
+    async function(event) {
+
+        event.preventDefault();
+
+
+        if (!supabaseClient) {
+
+            showAccountMessage(
+                "Configure o Supabase no script.js para ativar as contas."
+            );
+
+            return;
+
+        }
+
+
+        const email =
+            loginEmail.value.trim();
+
+        const password =
+            loginPassword.value;
+
+
+        showAccountMessage(
+            "Entrando..."
+        );
+
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth.signInWithPassword({
+
+                email: email,
+
+                password: password
+
+            });
+
+
+        if (error) {
+
+            showAccountMessage(
+                "E-mail ou senha inválidos."
+            );
+
+            return;
+
+        }
+
+
+        updateAccountButton(
+            data.user
+        );
+
+
+        showAccountMessage(
+            "Login realizado!"
+        );
+
+
+        setTimeout(
+            closeAccountModal,
+            800
+        );
+
+    }
+);
+
+
+/* USUÁRIO */
+
+function updateAccountButton(user) {
+
+    if (!user) {
+
+        accountButton.innerHTML =
+            "👤 <span>Entrar</span>";
+
+        return;
+
+    }
+
+
+    const name =
+        user.user_metadata &&
+        user.user_metadata.name;
+
+
+    const displayName =
+        name ||
+        user.email.split("@")[0];
+
+
+    accountButton.innerHTML = `
+        👤
+        <span>${displayName}</span>
+    `;
+
+}
+
+
+if (supabaseClient) {
+
+    supabaseClient.auth.onAuthStateChange(
+        function(event, session) {
+
+            updateAccountButton(
+                session
+                    ? session.user
+                    : null
+            );
+
+        }
+    );
+
+
+    supabaseClient.auth.getUser()
+        .then(function(result) {
+
+            updateAccountButton(
+                result.data.user
+            );
+
+        });
+
+}
+
+
+/* =========================
+   INICIALIZAÇÃO
+========================= */
 
 populateCountries();
 
