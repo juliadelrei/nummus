@@ -1,3 +1,12 @@
+/* =========================================================
+   NUMMUS - SCRIPT COMPLETO
+========================================================= */
+
+
+/* =========================================================
+   MOEDAS
+========================================================= */
+
 const products = [
 
     {
@@ -147,6 +156,10 @@ const products = [
 ];
 
 
+/* =========================================================
+   PAÍSES
+========================================================= */
+
 const countries = [
     "Afeganistão",
     "África do Sul",
@@ -216,6 +229,10 @@ const countries = [
 ];
 
 
+/* =========================================================
+   ELEMENTOS DO SITE
+========================================================= */
+
 const productsContainer =
     document.getElementById("products");
 
@@ -232,21 +249,21 @@ const resultInfo =
     document.getElementById("resultInfo");
 
 
-/* =========================
+/* =========================================================
    CARRINHO
-========================= */
+========================================================= */
 
 const cartButton =
     document.getElementById("cartButton");
-
-const closeCart =
-    document.getElementById("closeCart");
 
 const cartPanel =
     document.getElementById("cartPanel");
 
 const cartOverlay =
     document.getElementById("cartOverlay");
+
+const closeCart =
+    document.getElementById("closeCart");
 
 const cartItems =
     document.getElementById("cartItems");
@@ -264,6 +281,78 @@ const finishButton =
 let cart = [];
 
 
+/* =========================================================
+   CONTA
+========================================================= */
+
+const accountButton =
+    document.getElementById("accountButton");
+
+const accountOverlay =
+    document.getElementById("accountOverlay");
+
+const accountModal =
+    document.getElementById("accountModal");
+
+const closeAccount =
+    document.getElementById("closeAccount");
+
+const signupForm =
+    document.getElementById("signupForm");
+
+const loginForm =
+    document.getElementById("loginForm");
+
+const signupName =
+    document.getElementById("signupName");
+
+const signupEmail =
+    document.getElementById("signupEmail");
+
+const signupPassword =
+    document.getElementById("signupPassword");
+
+const loginEmail =
+    document.getElementById("loginEmail");
+
+const loginPassword =
+    document.getElementById("loginPassword");
+
+const accountTitle =
+    document.getElementById("accountTitle");
+
+const accountMessage =
+    document.getElementById("accountMessage");
+
+const toggleAccountMode =
+    document.getElementById("toggleAccountMode");
+
+
+let loginMode = false;
+
+
+/* =========================================================
+   SUPABASE
+========================================================= */
+
+const SUPABASE_URL =
+    "https://izyvvmgbmrsmcshrevnd.supabase.co";
+
+const SUPABASE_KEY =
+    "sb_publishable_ckn0noV0ss_H5GW7IdCNMQ_pD1LeFR3";
+
+
+const supabaseClient =
+    window.supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+
+/* =========================================================
+   FUNÇÃO DE DINHEIRO
+========================================================= */
+
 function money(value) {
 
     return value
@@ -273,40 +362,9 @@ function money(value) {
 }
 
 
-/* =========================
-   MOEDA FALLBACK
-========================= */
-
-function fallbackCoin(product) {
-
-    return `
-        <div class="fallbackCoin">
-
-            <div class="fallbackCoinInner">
-
-                <span>
-                    ${product.code}
-                </span>
-
-                <strong>
-                    ${product.name.split(" ")[0]}
-                </strong>
-
-                <small>
-                    ${product.year}
-                </small>
-
-            </div>
-
-        </div>
-    `;
-
-}
-
-
-/* =========================
-   RENDER MOEDAS
-========================= */
+/* =========================================================
+   PRODUTOS
+========================================================= */
 
 function renderProducts(list) {
 
@@ -335,7 +393,8 @@ function renderProducts(list) {
 
         `;
 
-        resultInfo.textContent = "0 peças";
+        resultInfo.textContent =
+            "0 peças";
 
         return;
     }
@@ -361,7 +420,25 @@ function renderProducts(list) {
                     class="realCoinImage"
                 >
 
-                ${fallbackCoin(product)}
+                <div class="fallbackCoin">
+
+                    <div class="fallbackCoinInner">
+
+                        <span>
+                            ${product.code}
+                        </span>
+
+                        <strong>
+                            ${product.name.split(" ")[0]}
+                        </strong>
+
+                        <small>
+                            ${product.year}
+                        </small>
+
+                    </div>
+
+                </div>
 
                 <span class="rarityTag">
                     ${product.rarity}
@@ -436,9 +513,11 @@ function renderProducts(list) {
             "error",
             function() {
 
-                image.style.display = "none";
+                image.style.display =
+                    "none";
 
-                fallback.style.display = "flex";
+                fallback.style.display =
+                    "flex";
 
             }
         );
@@ -476,18 +555,16 @@ function renderProducts(list) {
 }
 
 
-/* =========================
-   PAÍSES
-========================= */
+/* =========================================================
+   FILTRO DE PAÍSES
+========================================================= */
 
 function populateCountries() {
 
     countrySelect.innerHTML = `
-
         <option value="Todos">
             Todos os países
         </option>
-
     `;
 
 
@@ -512,18 +589,16 @@ function populateCountries() {
 }
 
 
-/* =========================
-   ANOS
-========================= */
+/* =========================================================
+   FILTRO DE ANOS
+========================================================= */
 
 function populateYears() {
 
     yearSelect.innerHTML = `
-
         <option value="Todos">
             Todos os anos
         </option>
-
     `;
 
 
@@ -568,9 +643,9 @@ function populateYears() {
 }
 
 
-/* =========================
-   FILTROS
-========================= */
+/* =========================================================
+   APLICAR FILTROS
+========================================================= */
 
 function applyFilters() {
 
@@ -591,15 +666,19 @@ function applyFilters() {
     const filtered =
         products.filter(function(product) {
 
-            const text = `
+            const text = (
 
-                ${product.name}
-                ${product.country}
-                ${product.year}
-                ${product.type}
-                ${product.rarity}
+                product.name +
+                " " +
+                product.country +
+                " " +
+                product.year +
+                " " +
+                product.type +
+                " " +
+                product.rarity
 
-            `.toLowerCase();
+            ).toLowerCase();
 
 
             const searchMatch =
@@ -630,6 +709,10 @@ function applyFilters() {
 }
 
 
+/* =========================================================
+   EVENTOS DOS FILTROS
+========================================================= */
+
 searchInput.addEventListener(
     "input",
     applyFilters
@@ -648,9 +731,9 @@ yearSelect.addEventListener(
 );
 
 
-/* =========================
-   ADICIONAR CARRINHO
-========================= */
+/* =========================================================
+   ADICIONAR AO CARRINHO
+========================================================= */
 
 function addToCart(id) {
 
@@ -677,7 +760,7 @@ function addToCart(id) {
 
     if (existing) {
 
-        existing.quantity++;
+        existing.quantity += 1;
 
     } else {
 
@@ -699,9 +782,9 @@ function addToCart(id) {
 }
 
 
-/* =========================
-   REMOVER
-========================= */
+/* =========================================================
+   REMOVER DO CARRINHO
+========================================================= */
 
 function removeFromCart(id) {
 
@@ -718,9 +801,9 @@ function removeFromCart(id) {
 }
 
 
-/* =========================
-   QUANTIDADE
-========================= */
+/* =========================================================
+   ALTERAR QUANTIDADE
+========================================================= */
 
 function changeQuantity(id, amount) {
 
@@ -754,9 +837,9 @@ function changeQuantity(id, amount) {
 }
 
 
-/* =========================
+/* =========================================================
    ATUALIZAR CARRINHO
-========================= */
+========================================================= */
 
 function updateCart() {
 
@@ -796,28 +879,29 @@ function updateCart() {
 
     let total = 0;
 
-    let quantityTotal = 0;
+    let totalQuantity = 0;
 
 
     cart.forEach(function(item) {
 
         total +=
-            item.price * item.quantity;
-
-
-        quantityTotal +=
+            item.price *
             item.quantity;
 
 
-        const cartItem =
+        totalQuantity +=
+            item.quantity;
+
+
+        const element =
             document.createElement("div");
 
 
-        cartItem.className =
+        element.className =
             "cartItem";
 
 
-        cartItem.innerHTML = `
+        element.innerHTML = `
 
             <div class="cartImageBox">
 
@@ -826,10 +910,6 @@ function updateCart() {
                     alt="${item.name}"
                     class="cartCoinImage"
                 >
-
-                <span>
-                    ${item.code}
-                </span>
 
             </div>
 
@@ -840,11 +920,9 @@ function updateCart() {
                     ${item.name}
                 </strong>
 
-
                 <small>
                     ${item.country} · ${item.year}
                 </small>
-
 
                 <b>
                     R$ ${money(item.price)}
@@ -894,7 +972,9 @@ function updateCart() {
 
 
         const cartImage =
-            cartItem.querySelector(".cartCoinImage");
+            element.querySelector(
+                ".cartCoinImage"
+            );
 
 
         cartImage.addEventListener(
@@ -908,13 +988,13 @@ function updateCart() {
         );
 
 
-        cartItems.appendChild(cartItem);
+        cartItems.appendChild(element);
 
     });
 
 
     cartCount.textContent =
-        quantityTotal;
+        totalQuantity;
 
 
     cartTotal.textContent =
@@ -972,9 +1052,9 @@ function updateCart() {
 }
 
 
-/* =========================
+/* =========================================================
    ABRIR CARRINHO
-========================= */
+========================================================= */
 
 function openCart() {
 
@@ -982,9 +1062,11 @@ function openCart() {
         "active"
     );
 
+
     cartOverlay.classList.add(
         "active"
     );
+
 
     document.body.classList.add(
         "cartOpen"
@@ -993,9 +1075,9 @@ function openCart() {
 }
 
 
-/* =========================
+/* =========================================================
    FECHAR CARRINHO
-========================= */
+========================================================= */
 
 function closeCartPanel() {
 
@@ -1003,9 +1085,11 @@ function closeCartPanel() {
         "active"
     );
 
+
     cartOverlay.classList.remove(
         "active"
     );
+
 
     document.body.classList.remove(
         "cartOpen"
@@ -1032,9 +1116,9 @@ cartOverlay.addEventListener(
 );
 
 
-/* =========================
-   FINALIZAR
-========================= */
+/* =========================================================
+   FINALIZAR COMPRA
+========================================================= */
 
 finishButton.addEventListener(
     "click",
@@ -1050,9 +1134,20 @@ finishButton.addEventListener(
         }
 
 
+        let summary = "";
+
+        cart.forEach(function(item) {
+
+            summary +=
+                `${item.name} x${item.quantity}\n`;
+
+        });
+
+
         alert(
-            "Seu pedido foi preparado.\n\n" +
-            "Total: " +
+            "PEDIDO NUMMUS\n\n" +
+            summary +
+            "\nTotal: " +
             cartTotal.textContent
         );
 
@@ -1060,116 +1155,16 @@ finishButton.addEventListener(
 );
 
 
-/* =========================
-   CONTA
-========================= */
-
-const accountButton =
-    document.getElementById(
-        "accountButton"
-    );
-
-const accountOverlay =
-    document.getElementById(
-        "accountOverlay"
-    );
-
-const accountModal =
-    document.getElementById(
-        "accountModal"
-    );
-
-const closeAccount =
-    document.getElementById(
-        "closeAccount"
-    );
-
-const signupForm =
-    document.getElementById(
-        "signupForm"
-    );
-
-const loginForm =
-    document.getElementById(
-        "loginForm"
-    );
-
-const signupName =
-    document.getElementById(
-        "signupName"
-    );
-
-const signupEmail =
-    document.getElementById(
-        "signupEmail"
-    );
-
-const signupPassword =
-    document.getElementById(
-        "signupPassword"
-    );
-
-const loginEmail =
-    document.getElementById(
-        "loginEmail"
-    );
-
-const loginPassword =
-    document.getElementById(
-        "loginPassword"
-    );
-
-const accountTitle =
-    document.getElementById(
-        "accountTitle"
-    );
-
-const accountMessage =
-    document.getElementById(
-        "accountMessage"
-    );
-
-const toggleAccountMode =
-    document.getElementById(
-        "toggleAccountMode"
-    );
-
-
-let loginMode = false;
-
-
-/* COLOQUE SUAS CHAVES DO SUPABASE AQUI */
-
-const SUPABASE_URL =
-    "https://izyvvmgbmrsmcshrevnd.supabase.co";
-
-const SUPABASE_KEY =
-    "sb_publishable_ckn0noV0ss_H5GW7IdCNMQ_pD1LeFR3";
-
-
-let supabaseClient = null;
-
-
-if (
-    window.supabase &&
-    SUPABASE_URL.startsWith("http") &&
-    SUPABASE_KEY !== "sb_publishable_ckn0noV0ss_H5GW7IdCNMQ_pD1LeFR3"
-) {
-
-    supabaseClient =
-        window.supabase.createClient(
-            SUPABASE_URL,
-            SUPABASE_KEY
-        );
-
-}
-
+/* =========================================================
+   ABRIR CONTA
+========================================================= */
 
 function openAccount() {
 
     accountModal.classList.add(
         "active"
     );
+
 
     accountOverlay.classList.add(
         "active"
@@ -1183,6 +1178,7 @@ function closeAccountModal() {
     accountModal.classList.remove(
         "active"
     );
+
 
     accountOverlay.classList.remove(
         "active"
@@ -1219,6 +1215,10 @@ accountOverlay.addEventListener(
 );
 
 
+/* =========================================================
+   TROCAR LOGIN / CADASTRO
+========================================================= */
+
 toggleAccountMode.addEventListener(
     "click",
     function() {
@@ -1237,12 +1237,15 @@ toggleAccountMode.addEventListener(
                 "hiddenForm"
             );
 
+
             loginForm.classList.remove(
                 "hiddenForm"
             );
 
+
             accountTitle.textContent =
                 "Entrar";
+
 
             toggleAccountMode.textContent =
                 "Ainda não tenho uma conta";
@@ -1253,12 +1256,15 @@ toggleAccountMode.addEventListener(
                 "hiddenForm"
             );
 
+
             loginForm.classList.add(
                 "hiddenForm"
             );
 
+
             accountTitle.textContent =
                 "Criar conta";
+
 
             toggleAccountMode.textContent =
                 "Já tenho uma conta";
@@ -1269,7 +1275,9 @@ toggleAccountMode.addEventListener(
 );
 
 
-/* CADASTRO */
+/* =========================================================
+   CRIAR CONTA
+========================================================= */
 
 signupForm.addEventListener(
     "submit",
@@ -1278,57 +1286,22 @@ signupForm.addEventListener(
         event.preventDefault();
 
 
-        if (!supabaseClient) {
-
-            showAccountMessage(
-                "Configure o Supabase no script.js para ativar as contas."
-            );
-
-            return;
-
-        }
-
-
         const name =
             signupName.value.trim();
 
+
         const email =
             signupEmail.value.trim();
+
 
         const password =
             signupPassword.value;
 
 
-        showAccountMessage(
-            "Criando sua conta..."
-        );
-
-
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.signUp({
-
-                email: email,
-
-                password: password,
-
-                options: {
-
-                    data: {
-                        name: name
-                    }
-
-                }
-
-            });
-
-
-        if (error) {
+        if (password.length < 6) {
 
             showAccountMessage(
-                error.message
+                "A senha precisa ter pelo menos 6 caracteres."
             );
 
             return;
@@ -1336,26 +1309,82 @@ signupForm.addEventListener(
         }
 
 
-        if (data.session) {
+        showAccountMessage(
+            "Criando conta..."
+        );
+
+
+        try {
+
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth.signUp({
+
+                    email: email,
+
+                    password: password,
+
+                    options: {
+
+                        data: {
+                            name: name
+                        }
+
+                    }
+
+                });
+
+
+            if (error) {
+
+                showAccountMessage(
+                    error.message
+                );
+
+                return;
+
+            }
+
+
+            if (
+                data.user &&
+                data.session
+            ) {
+
+                updateAccountButton(
+                    data.user
+                );
+
+
+                showAccountMessage(
+                    "Conta criada com sucesso!"
+                );
+
+
+                signupForm.reset();
+
+
+                setTimeout(
+                    closeAccountModal,
+                    1000
+                );
+
+            } else {
+
+                showAccountMessage(
+                    "Conta criada! Confira seu e-mail para confirmar o cadastro."
+                );
+
+            }
+
+        } catch (error) {
+
+            console.error(error);
 
             showAccountMessage(
-                "Conta criada com sucesso!"
-            );
-
-            updateAccountButton(
-                data.user
-            );
-
-
-            setTimeout(
-                closeAccountModal,
-                1000
-            );
-
-        } else {
-
-            showAccountMessage(
-                "Conta criada! Confira seu e-mail para confirmar."
+                "Erro ao criar a conta."
             );
 
         }
@@ -1364,7 +1393,9 @@ signupForm.addEventListener(
 );
 
 
-/* LOGIN */
+/* =========================================================
+   LOGIN
+========================================================= */
 
 loginForm.addEventListener(
     "submit",
@@ -1373,19 +1404,9 @@ loginForm.addEventListener(
         event.preventDefault();
 
 
-        if (!supabaseClient) {
-
-            showAccountMessage(
-                "Configure o Supabase no script.js para ativar as contas."
-            );
-
-            return;
-
-        }
-
-
         const email =
             loginEmail.value.trim();
+
 
         const password =
             loginPassword.value;
@@ -1396,60 +1417,79 @@ loginForm.addEventListener(
         );
 
 
-        const {
-            data,
-            error
-        } =
-            await supabaseClient.auth.signInWithPassword({
+        try {
 
-                email: email,
+            const {
+                data,
+                error
+            } =
+                await supabaseClient.auth
+                    .signInWithPassword({
 
-                password: password
+                        email: email,
 
-            });
+                        password: password
+
+                    });
 
 
-        if (error) {
+            if (error) {
 
-            showAccountMessage(
-                "E-mail ou senha inválidos."
+                showAccountMessage(
+                    "E-mail ou senha inválidos."
+                );
+
+                return;
+
+            }
+
+
+            updateAccountButton(
+                data.user
             );
 
-            return;
+
+            showAccountMessage(
+                "Login realizado com sucesso!"
+            );
+
+
+            loginForm.reset();
+
+
+            setTimeout(
+                closeAccountModal,
+                800
+            );
+
+        } catch (error) {
+
+            console.error(error);
+
+            showAccountMessage(
+                "Erro ao entrar."
+            );
 
         }
-
-
-        updateAccountButton(
-            data.user
-        );
-
-
-        showAccountMessage(
-            "Login realizado!"
-        );
-
-
-        setTimeout(
-            closeAccountModal,
-            800
-        );
 
     }
 );
 
 
-/* USUÁRIO */
+/* =========================================================
+   MOSTRAR USUÁRIO
+========================================================= */
 
 function updateAccountButton(user) {
 
     if (!user) {
 
-        accountButton.innerHTML =
-            "👤 <span>Entrar</span>";
+        accountButton.innerHTML = `
+            👤
+            <span>Entrar</span>
+        `;
 
         return;
-
     }
 
 
@@ -1471,36 +1511,64 @@ function updateAccountButton(user) {
 }
 
 
-if (supabaseClient) {
+/* =========================================================
+   CARREGAR USUÁRIO LOGADO
+========================================================= */
 
-    supabaseClient.auth.onAuthStateChange(
-        function(event, session) {
+async function loadUser() {
 
-            updateAccountButton(
-                session
-                    ? session.user
-                    : null
-            );
+    try {
+
+        const {
+            data,
+            error
+        } =
+            await supabaseClient.auth
+                .getUser();
+
+
+        if (error) {
+
+            console.error(error);
+
+            return;
 
         }
-    );
 
 
-    supabaseClient.auth.getUser()
-        .then(function(result) {
+        updateAccountButton(
+            data.user
+        );
 
-            updateAccountButton(
-                result.data.user
-            );
+    } catch (error) {
 
-        });
+        console.error(error);
+
+    }
 
 }
 
 
-/* =========================
+/* =========================================================
+   DETECTAR MUDANÇA DE LOGIN
+========================================================= */
+
+supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+
+        updateAccountButton(
+            session
+                ? session.user
+                : null
+        );
+
+    }
+);
+
+
+/* =========================================================
    INICIALIZAÇÃO
-========================= */
+========================================================= */
 
 populateCountries();
 
@@ -1509,3 +1577,5 @@ populateYears();
 renderProducts(products);
 
 updateCart();
+
+loadUser();
