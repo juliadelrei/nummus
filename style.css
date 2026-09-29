@@ -2067,3 +2067,57 @@ nav > a:hover {
     }
 
 }
+
+/* =========================
+   LOGO NUMMUS
+========================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+    width: 150px;
+    height: 68px;
+}
+
+.brand img {
+    display: block;
+    width: 150px;
+    height: 68px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.footerSimple .brand {
+    width: 120px;
+    height: 60px;
+}
+
+.footerSimple .brand img {
+    width: 120px;
+    height: 60px;
+}
+
+@media (max-width: 800px) {
+    .brand {
+        width: 150px;
+        height: 68px;
+        margin: 0 auto;
+    }
+
+    .brand img {
+        width: 150px;
+        height: 68px;
+    }
+}
+
+@media (max-width: 550px) {
+    .brand {
+        width: 135px;
+        height: 62px;
+    }
+
+    .brand img {
+        width: 135px;
+        height: 62px;
+    }
+}
