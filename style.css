@@ -333,7 +333,7 @@ nav > a:hover {
     align-items: center;
     justify-content: center;
 }
-
+.heroCoinsImage { width: 320px; max-width: 100%; height: auto; display: block; object-fit: contain; filter: drop-shadow( 0 20px 25px rgba(0, 0, 0, .6) ); transition: transform .3s ease; } .heroCoinsImage:hover { transform: scale(1.05); }
 .heroCoin {
     width: 245px;
     height: 245px;
